@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="style.css" />
+        <title>
+            <ui:insert name="windowTitle" />
+        </title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <header class="header clearfix">
+                <div class="logo">Springfield Water Utilities</div>
+                <nav class="menu_main">
+                    <h:outputText rendered="#{login.loggedin}" value="ID: #{login.username.toUpperCase()}" />
+                    <ul>
+                        <ui:fragment rendered="#{!login.loggedin}">
+                            <li > 
+                                <h:link outcome="/login" value="Login" />
+                            </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{!login.loggedin}">
+                            <li>
+                                <h:link outcome="/registration" value="#{msgs.register}" />
+                            </li>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{(login.loggedin and !login.isAdmin)}">
+                            <li >
+                                <h:link outcome="/getdata" value="#{msgs.homeLinkUser}" />
+                            </li>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{(login.loggedin and login.isAdmin)}">
+                            <li >
+                                <h:link outcome="/index" value="#{msgs.homeLinkAdmin}" />
+                            </li>
+                        </ui:fragment>
+                        <li>
+                            <h:link outcome="/contactus" value="#{msgs.contact_us}" />
+                        </li>
+                        <ui:fragment rendered="#{login.loggedin}">
+                            <li>
+                                <h:form id="logoutform">
+                                    <h:commandLink value="Logout" action="#{login.logout}" />
+                                </h:form>
+                            </li>
+                        </ui:fragment>
+                    </ul>
+                </nav>
+                <br />
+                <br />
+            </header>
+
+            <article class="hero clearfix">
+                <ui:insert name="bodyContent" />
+            </article>
+
+
+            <br />
+            <br />
+            <footer class="footer clearfix">
+                <div class="copyright">
+                    #{msgs.copyright}
+                </div>
+                <h:form>
+                    <nav class="menu_bottom">
+                        <ul>
+                            <li>
+                                <h:commandLink action="#{springfield.switchLanguage('fr')}">#{msgs.french_link}</h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink action="#{springfield.switchLanguage('en')}">#{msgs.english_link}</h:commandLink>
+
+                            </li>
+                        </ul>
+                    </nav>
+                </h:form>
+                <br />
+                <br />
+                <h:panelGroup rendered="#{springfield.debug}">
+                    <p style="color: red; text-align: center; margin: auto;">#{msgs.debug_info}</p>
+                    <ui:debug hotkey="i" rendered="#{springfield.debug}" />
+                </h:panelGroup>
+            </footer>
+        </div>
+    </h:body>
+</html>

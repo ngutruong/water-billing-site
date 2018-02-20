@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet library="css" name="style.css" />
+    <ui:composition template="templates/temp.xhtml">
+        <ui:define name="windowTitle">
+            Springfield Water Utilities: Graph Summary
+        </ui:define>
+        <ui:define name="bodyContent">
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <h1 class="logo">#{msgs.graphHeader}</h1>
+            
+            <br />
+            <br />
+            <br />
+            
+            <div id="chart_div" style="width: 900px; height: 500px;"></div>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(drawVisualization);
+
+                function drawVisualization() {
+                    var data = google.visualization.arrayToDataTable([
+                        ["Date", "#{msgs.monthlyBillAmountLegend}"],
+                #{springfield.summaryChart}
+                    ]);
+
+                    var options = {
+                        title: "#{msgs.graphTitle} #{login.meterID}",
+                                    vAxis: {title: 'Amount'},
+                                    hAxis: {title: 'Month'},
+                                    seriesType: 'bars',
+                                    series: {2: {type: 'line'}}
+                                };
+
+                                var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+                                chart.draw(data, options);
+                            }
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

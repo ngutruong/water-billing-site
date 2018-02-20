@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet library="css" name="style.css" />
+    <ui:composition template="templates/temp.xhtml">
+        <ui:define name="windowTitle">
+            Springfield Water Utilities: Bill Details
+        </ui:define>
+        <ui:define name="bodyContent">
+            <h1 class="logo">#{msgs.selectedMeterHeading} #{springfield.meterID()}</h1>
+            <br />
+            <br />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>#{msgs.totalAmountUsed}<sup>3</sup></td>
+                        <td>
+                            <h:outputText value="#{springfield.amountUsed}">
+                                <f:convertNumber pattern="#" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.lowAmountUsed}<sup>3</sup></td>
+                        <td>#{springfield.lowAmountUsed}</td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.mediumAmountUsed}<sup>3</sup></td>
+                        <td>#{springfield.medAmountUsed}</td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.highAmountUsed}<sup>3</sup></td>
+                        <td>#{springfield.highAmountUsed}</td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.dailyHouseholdAverage}</td>
+                        <td>
+                            <h:outputText value="#{springfield.dailyHouseholdAverage}">
+                                <f:convertNumber pattern="#.0" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>#{msgs.currentBillSummaryHeader}</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>#{msgs.itemColumn}</td>
+                        <td>#{msgs.rateColumn}</td>
+                        <td>#{msgs.costColumn}</td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.costLow}</td>
+                        <td>
+                            $<h:outputText value="#{springfield.costLowRate}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                        <td>
+                            $<h:outputText value="#{springfield.costLow}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.costMedium}</td>
+                        <td>
+                            $<h:outputText value="#{springfield.costMedRate}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                        <td>
+                            $<h:outputText value="#{springfield.costMed}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.costHigh}</td>
+                        <td>
+                            $<h:outputText value="#{springfield.costHighRate}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                        <td>
+                            $<h:outputText value="#{springfield.costHigh}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.adminFee}</td>
+                        <td></td>
+                        <td>
+                            $<h:outputText value="#{springfield.adminFee}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.subtotal}</td>
+                        <td></td>
+                        <td>
+                            $<h:outputText value="#{springfield.sub}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr> <tr>
+                        <td>#{msgs.tax}</td>
+                        <td></td>
+                        <td>
+                            $<h:outputText value="#{springfield.tax}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#{msgs.total}</td>
+                        <td></td>
+                        <td>
+                            $<h:outputText value="#{springfield.total}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </td>
+                    </tr>     
+                </tbody>
+            </table>
+        </ui:define>
+    </ui:composition>
+</html>

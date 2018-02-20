@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet library="css" name="style.css" />
+    <ui:composition template="templates/temp.xhtml">
+        <ui:define name="windowTitle">
+            Springfield Water Utilities: Data Page
+        </ui:define>
+        <ui:define name="bodyContent">
+            <h1 class="logo">#{msgs.selectedMeterHeading} #{springfield.meterID()}</h1>
+            <h:form>
+                <h:commandButton class="button" value="#{msgs.graphButtonText}" action="graph?faces-redirect=true"  >
+                </h:commandButton>
+            </h:form>
+
+            <br />
+            
+            <h:dataTable value="#{springfield.data}" var="sum" styleClass="table"> 
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputText value="#{sum.date}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.meterReadingColumn}</f:facet>
+                    <h:outputText value="#{sum.reading}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.amountUsedColumn}</f:facet>
+                    <h:outputText value="#{sum.amountUsed}">
+                        <f:convertNumber pattern="0.0" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.billTotalColumn}</f:facet>
+                    $<h:outputText value="#{sum.totalCost}">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Details</f:facet>
+                    <h:form>
+                        <h:commandButton class="button" value="#{msgs.detailsButtonText}" action="#{springfield.setDetails(sum.date)}">
+                        </h:commandButton>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </ui:define>
+    </ui:composition>
+</html>
